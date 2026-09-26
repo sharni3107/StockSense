@@ -19,10 +19,10 @@ export function FieldWrapper({ label, error, children }: WrapperProps) {
 const inputClass =
   "w-full h-9 px-3 rounded border border-border bg-white text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/15";
 
-export function Input(props: InputHTMLAttributes<HTMLInputElement>) {
-  return <input className={inputClass} {...props} />;
+export function Input({ className = "", ...props }: InputHTMLAttributes<HTMLInputElement>) {
+  return <input className={`${inputClass} ${className}`} {...props} />;
 }
 
-export function Select(props: SelectHTMLAttributes<HTMLSelectElement>) {
-  return <select className={inputClass} {...props} />;
+export function Select({ className = "", ...props }: SelectHTMLAttributes<HTMLSelectElement>) {
+  return <select className={`${inputClass} ${className}`} {...props} />;
 }

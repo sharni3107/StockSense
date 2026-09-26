@@ -8,8 +8,9 @@ export function errorHandler(err: unknown, req: Request, res: Response, _next: N
 
   // Prisma unique constraint violation (e.g. duplicate SKU/email/reference)
   if (typeof err === "object" && err !== null && (err as any).code === "P2002") {
-    const target = (err as any).meta?.target?.[0] || "value";
-    return res.status(409).json({ error: `That ${target} is already in use.` });
+    const targets: string[] = (err as any).meta?.target || ["value"];
+    const label = targets.join(" + ");
+    return res.status(409).json({ error: `That ${label} already exists. Please use a different value.` });
   }
 
   console.error("Unexpected error:", err);

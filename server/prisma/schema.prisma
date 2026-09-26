@@ -7,12 +7,32 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  INVENTORY_MANAGER
+  WAREHOUSE_STAFF
+}
+
+enum OperationType {
+  RECEIPT
+  DELIVERY
+  INTERNAL_TRANSFER
+  ADJUSTMENT
+}
+
+enum OperationStatus {
+  DRAFT
+  WAITING
+  READY
+  DONE
+  CANCELED
+}
+
 model User {
   id           String    @id @default(cuid())
   name         String
   email        String    @unique
   passwordHash String
-  role         String    @default("WAREHOUSE_STAFF")
+  role         Role      @default(WAREHOUSE_STAFF)
   createdAt    DateTime  @default(now())
 
   operations   InventoryOperation[]
@@ -85,8 +105,8 @@ model Stock {
 model InventoryOperation {
   id                   String          @id @default(cuid())
   reference            String          @unique
-  type                 String
-  status               String          @default("DRAFT")
+  type                 OperationType
+  status               OperationStatus @default(DRAFT)
   partnerName          String?
   sourceLocationId     String?
   destinationLocationId String?
@@ -123,7 +143,7 @@ model StockLedger {
   destinationLocationId String?
   quantityChange        Float
   balanceAfter          Float
-  operationType         String
+  operationType         OperationType
   createdById           String
   createdAt             DateTime      @default(now())
 

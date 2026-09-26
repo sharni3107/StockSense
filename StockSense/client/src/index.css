@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Caveat:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS Custom Properties ─────────────────────────────────────────────────── */
+:root {
+  --color-bg: #F8FAFC;
+  --color-surface: #FFFFFF;
+  --color-elevated: #FFFFFF;
+  --color-border: #E2E8F0;
+  --color-text: #0F172A;
+  --color-muted: #64748B;
+  --color-primary: #2563EB;
+  --color-primary-light: #EFF6FF;
+  --sidebar-width: 240px;
+}
+
+.dark {
+  --color-bg: #0F172A;
+  --color-surface: #1E293B;
+  --color-elevated: #293548;
+  --color-border: #334155;
+  --color-text: #F1F5F9;
+  --color-muted: #94A3B8;
+  --color-primary: #3B82F6;
+  --color-primary-light: #1E3A8A;
+}
+
+/* ── Base Styles ───────────────────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  @apply bg-surface text-navy font-sans;
+  font-feature-settings: "tnum" 1, "cv01" 1;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-navy-200 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-navy-300;
+}
+
+/* ── Typography ────────────────────────────────────────────────────────────── */
+.font-display {
+  font-family: 'Caveat', cursive;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-sans text-navy;
+}
+
+/* ── Table ─────────────────────────────────────────────────────────────────── */
+.table-base {
+  @apply w-full text-sm;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.table-base th {
+  @apply text-xs font-semibold text-navy-400 uppercase tracking-wider;
+  @apply px-4 py-3 text-left border-b border-border bg-surface;
+}
+
+.table-base td {
+  @apply px-4 py-3 border-b border-border;
+}
+
+.table-base tr:last-child td {
+  border-bottom: none;
+}
+
+.table-base tbody tr {
+  @apply transition-colors;
+}
+
+.table-base tbody tr:hover {
+  @apply bg-primary-50;
+}
+
+/* ── Form Controls ─────────────────────────────────────────────────────────── */
+.input-base {
+  @apply w-full rounded-md border border-border bg-white px-3 py-2 text-sm text-navy;
+  @apply transition-colors placeholder:text-navy-300;
+  @apply focus:outline-none focus:ring-2 focus:ring-primary-200 focus:border-primary;
+}
+
+.input-base:disabled {
+  @apply bg-surface cursor-not-allowed opacity-70;
+}
+
+select.input-base {
+  @apply cursor-pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%2394A3B8' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.25em 1.25em;
+  padding-right: 2.5rem;
+  appearance: none;
+}
+
+/* ── Cards ─────────────────────────────────────────────────────────────────── */
+.card {
+  @apply bg-white rounded-xl border border-border shadow-card;
+}
+
+.kpi-card {
+  @apply card p-5 flex flex-col gap-3;
+  @apply transition-all duration-200 hover:shadow-card-hover;
+}
+
+/* ── Badges ────────────────────────────────────────────────────────────────── */
+.badge {
+  @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold;
+}
+
+/* ── Dark Mode ─────────────────────────────────────────────────────────────── */
+.dark .card {
+  @apply bg-dark-surface border-dark-border;
+}
+
+.dark .input-base {
+  @apply bg-dark-elevated border-dark-border text-slate-100 placeholder:text-slate-500;
+}
+
+.dark .table-base th {
+  @apply bg-dark-surface border-dark-border text-slate-400;
+}
+
+.dark .table-base td {
+  @apply border-dark-border;
+}
+
+.dark .table-base tbody tr:hover {
+  @apply bg-dark-elevated;
+}
+
+/* ── Sidebar ────────────────────────────────────────────────────────────────── */
+.sidebar-link {
+  @apply flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium;
+  @apply text-navy-500 transition-all duration-150;
+}
+
+.sidebar-link:hover {
+  @apply bg-primary-50 text-primary;
+}
+
+.sidebar-link.active {
+  @apply bg-primary-100 text-primary-700 font-semibold;
+}
+
+/* ── Animations ─────────────────────────────────────────────────────────────── */
+.animate-in {
+  animation: fadeIn 0.2s ease-out, slideUp 0.2s ease-out;
+}
+
+/* ── Page Layout ────────────────────────────────────────────────────────────── */
+.page-container {
+  @apply p-6 max-w-screen-2xl mx-auto;
+}
+
+/* ── Modal ──────────────────────────────────────────────────────────────────── */
+.modal-overlay {
+  @apply fixed inset-0 z-50 flex items-center justify-center;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.modal-panel {
+  @apply bg-white rounded-2xl shadow-modal w-full animate-in;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* ── Status Badge Colors ────────────────────────────────────────────────────── */
+.badge-draft {
+  background: #F1F5F9;
+  color: #475569;
+  border: 1px solid #CBD5E1;
+}
+.badge-waiting {
+  background: #FFFBEB;
+  color: #B45309;
+  border: 1px solid #FDE68A;
+}
+.badge-ready {
+  background: #EFF6FF;
+  color: #1D4ED8;
+  border: 1px solid #BFDBFE;
+}
+.badge-done {
+  background: #F0FDF4;
+  color: #15803D;
+  border: 1px solid #BBF7D0;
+}
+.badge-canceled {
+  background: #FFF1F2;
+  color: #BE123C;
+  border: 1px solid #FECDD3;
+}
+.badge-healthy {
+  background: #F0FDF4;
+  color: #15803D;
+  border: 1px solid #BBF7D0;
+}
+.badge-low, .badge-needs_reorder {
+  background: #FFFBEB;
+  color: #B45309;
+  border: 1px solid #FDE68A;
+}
+.badge-out, .badge-critical {
+  background: #FFF1F2;
+  color: #BE123C;
+  border: 1px solid #FECDD3;
+}
